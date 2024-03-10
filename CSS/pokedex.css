@@ -1,0 +1,588 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+
+html {
+	--clr-black: #1c1c1c;
+	--clr-gray: #ececec;
+	--clr-white: #f7f7f7;
+	--type-normal: #a8a878;
+	--type-fire: #f08030;
+	--type-water: #6890f0;
+	--type-grass: #78c850;
+	--type-electric: #f8d030;
+	--type-ice: #98d8d8;
+	--type-fighting: #c03028;
+	--type-poison: #a040a0;
+	--type-ground: #e0c068;
+	--type-flying: #a890f0;
+	--type-psychic: #f85888;
+	--type-bug: #a8b820;
+	--type-rock: #b8a038;
+	--type-ghost: #705898;
+	--type-dark: #705848;
+	--type-dragon: #7038f8;
+	--type-steel: #b8b8d0;
+	--type-fairy: #f0b6bc;
+	--text: #f2f4f5;
+	--card: #131f23;
+	--background: #0b1416;
+	color: var(--text);
+}
+html[temaClaro] {
+	--text: #1c1c1c;
+	--card: #f7f7f7;
+	--background: #ececec;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Rubik", sans-serif;
+}
+ul {
+	list-style-type: none;
+}
+button {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+}
+
+body {
+	background-color: var(--background);
+}
+header {
+	padding-block: 1rem;
+	box-shadow: 0 0 2rem -1rem rgba(0, 0, 0, 0.5);
+	background-color: var(--card);
+}
+.nav {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	/* para que este en la izquierda */
+	align-items: flex-start;
+	padding-inline: 2rem;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.cabecera {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.o-switch {
+	--oWidth: 50px;
+	--oHeight: 30px;
+	--oColor: var(--text);
+	--oBackground: var(--background);
+	--oCorner: calc(var(--oHeight) / 2);
+	--oThumb: 20px;
+	--oThumbSpace: calc((var(--oHeight) - var(--oThumb)) / 2);
+	min-width: max-content;
+	min-height: max-content;
+	position: relative;
+}
+
+.o-switch > input {
+	min-width: var(--oWidth);
+	min-height: var(--oHeight);
+	width: max-content;
+	height: max-content;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	cursor: pointer;
+	appearance: none;
+	fill: var(--oColor);
+	color: var(--oColor);
+	background: var(--oBackground);
+	border-radius: var(--oCorner);
+}
+
+.o-switch > input::before {
+	content: "";
+	width: calc(var(--oHeight) - 10px);
+	height: calc(var(--oHeight) - 10px);
+	position: absolute;
+	top: var(--oThumbSpace);
+	left: var(--oThumbSpace);
+	border-radius: var(--oHeight);
+	background: var(--oColor);
+	transition: left 0.2s;
+}
+
+.o-switch > input:checked::before {
+	left: calc(var(--oWidth) - var(--oThumb) - var(--oThumbSpace));
+}
+
+.lista {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.btn-header {
+	background-color: var(--clr-gray);
+	padding: 0.5rem;
+	border-radius: 100vmax;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: 600;
+	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+	transition: 0.2s;
+}
+.btn-header:hover {
+	transform: scale(1.1);
+	box-shadow: 0 0 2rem rgba(0, 0, 0, 0.25);
+}
+
+main {
+	padding: 2rem;
+	max-width: 1000px;
+	/* 0 --> Arriba y abajo
+    auto --> para que se centren los elementos */
+	margin: 0 auto;
+}
+.pokemonTodos {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+.pokemon {
+	border-radius: 1.5rem;
+	background-color: var(--card);
+	box-shadow: 0 0 3rem -1rem rgba(0, 0, 0, 0.25);
+	/* desde la api viene todo en minuscula */
+	text-transform: uppercase;
+	position: relative;
+	/* para que el nivel más bajo al cual se pueda ir el z-index sea el contenedor */
+	isolation: isolate;
+	overflow: hidden;
+	cursor: pointer;
+	transition: 0.2s;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.pokemon:hover {
+	transform: scale(1.07);
+	box-shadow: 0 0 6rem -1rem rgba(0, 0, 0, 0.25);
+}
+
+.idDetras {
+	position: absolute;
+	top: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 6rem;
+	font-weight: 800;
+	z-index: -1;
+	color: var(--clr-gray);
+}
+.imagenPokemon {
+	display: flex;
+	/* centrar la imagen */
+	justify-content: center;
+	border-radius: calc(1.5rem - 10px);
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.6rem;
+}
+.imagenPokemon img {
+	width: 60%;
+}
+
+.imagenPokemon span {
+	color: var(--clr-white);
+	text-shadow: rgb(0, 0, 0) 0px 3px 5px;
+	font-weight: bold;
+	font-size: 4rem;
+	margin-bottom: -2rem;
+}
+
+.infoPokemon {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding-inline: 1rem;
+	align-items: center;
+	text-align: center;
+	margin-block: 10px;
+}
+
+.nombre {
+	display: flex;
+	align-items: center;
+	/*Lo hago column-gap porque si hago gap normal, al hacerlo más grande se genera un espacio muy grande */
+	column-gap: 0.5rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.pokemonID {
+	background-color: var(--clr-gray);
+	padding: 0.25rem 0.5rem;
+	border-radius: 100vmax;
+	font-size: 0.75rem;
+	font-weight: 500;
+}
+
+.pokemonNombre {
+	font-size: 1.4rem;
+}
+
+.tipos {
+	display: flex;
+	gap: 0.5rem;
+	font-size: 0.75rem;
+	font-weight: 500;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-transform: uppercase;
+}
+
+.tipo {
+	padding: 0.25rem 0.5rem;
+	border-radius: 100vmax;
+}
+
+.stats {
+	display: flex;
+	gap: 1rem;
+	font-size: 0.85rem;
+}
+
+.stat {
+	background-color: var(--background);
+	padding: 0.25rem 0.5rem;
+	border-radius: 100vmax;
+}
+
+/* Para cuando se seleccione una carta */
+#infoStats {
+	max-width: 100%;
+	background-color: var(--background);
+	margin-top: 0.2rem;
+	display: none;
+	flex-direction: column;
+	height: 100%;
+}
+
+#flecha {
+	margin-left: auto;
+	width: 10%;
+	cursor: pointer;
+}
+
+#flechaDerecha,
+#flechaIzquierda {
+	position: absolute;
+	top: 15rem;
+	text-decoration: none;
+	padding: 16px;
+	font-size: 2rem;
+	font-weight: bold;
+	user-select: none;
+	cursor: pointer;
+	width: auto;
+	color: var(--text);
+}
+
+#flechaIzquierda {
+	left: 0;
+}
+
+#flechaDerecha {
+	right: 0;
+}
+
+.izquierda {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+	/* para que el nivel más bajo al cual se pueda ir el z-index sea el contenedor */
+	isolation: isolate;
+	overflow: hidden;
+	text-transform: uppercase;
+}
+
+.sprite {
+	display: none;
+}
+
+.numero {
+	margin-bottom: -5rem;
+	font-size: 8rem;
+	font-weight: 800;
+	color: var(--text);
+}
+
+.image {
+	display: flex;
+	justify-content: center;
+}
+
+.image img {
+	max-width: 80%;
+}
+
+.nombrePokemon {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.derecha {
+	display: flex;
+	justify-content: center;
+	color: var(--text);
+	flex-direction: column;
+	margin-top: 2rem;
+}
+
+#derechaStats {
+	display: flex;
+	flex-direction: column;
+}
+
+#derechaDesc {
+	display: flex;
+	flex-direction: column;
+}
+
+#habilidades {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	font-size: 0.8rem;
+}
+
+#habilidades p {
+	color: var(--text);
+	text-transform: uppercase;
+}
+
+#movimientos {
+	display: none;
+	flex-wrap: wrap;
+	gap: 17px;
+	font-size: 0.8rem;
+}
+
+#movimientos p {
+	background-color: var(--card);
+	padding: 5px 10px;
+	border-radius: 30px;
+	text-transform: uppercase;
+}
+
+#ocultarMovimientos {
+	display: none;
+}
+
+.estadisticas {
+	margin-block: 1rem;
+	align-self: center;
+}
+
+.calculo {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	position: relative;
+	width: 100%;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.tabla {
+	margin-inline: 1rem;
+	width: calc(100% - 2rem);
+}
+
+.estadisticaCelda {
+	white-space: nowrap;
+	text-align: left;
+	width: max-content;
+}
+
+.numeroCelda {
+	white-space: nowrap;
+	text-align: right;
+}
+
+.barraCelda {
+	width: 100%;
+	min-width: 150px;
+	padding-inline: 1rem;
+}
+
+.barraStat {
+	height: 0.75rem;
+	border-radius: 4px;
+	border: 1px solid #737373;
+	border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Colores de los botones */
+.normal {
+	background-color: var(--type-normal);
+	color: var(--clr-black);
+}
+
+.fire {
+	background-color: var(--type-fire);
+	color: var(--clr-black);
+}
+
+.water {
+	background-color: var(--type-water);
+	color: var(--clr-white);
+}
+
+.grass {
+	background-color: var(--type-grass);
+	color: var(--clr-black);
+}
+
+.electric {
+	background-color: var(--type-electric);
+	color: var(--clr-black);
+}
+
+.ice {
+	background-color: var(--type-ice);
+	color: var(--clr-black);
+}
+
+.fighting {
+	background-color: var(--type-fighting);
+	color: var(--clr-white);
+}
+
+.poison {
+	background-color: var(--type-poison);
+	color: var(--clr-white);
+}
+
+.ground {
+	background-color: var(--type-ground);
+	color: var(--clr-black);
+}
+
+.flying {
+	background-color: var(--type-flying);
+	color: var(--clr-black);
+}
+
+.psychic {
+	background-color: var(--type-psychic);
+	color: var(--clr-black);
+}
+
+.bug {
+	background-color: var(--type-bug);
+	color: var(--clr-black);
+}
+
+.rock {
+	background-color: var(--type-rock);
+	color: var(--clr-black);
+}
+
+.ghost {
+	background-color: var(--type-ghost);
+	color: var(--clr-white);
+}
+
+.dark {
+	background-color: var(--type-dark);
+	color: var(--clr-white);
+}
+
+.dragon {
+	background-color: var(--type-dragon);
+	color: var(--clr-white);
+}
+
+.steel {
+	background-color: var(--type-steel);
+	color: var(--clr-black);
+}
+
+.fairy {
+	background-color: var(--type-fairy);
+	color: var(--clr-black);
+}
+
+@media screen and (min-width: 470px) {
+	.pokemonTodos {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+@media screen and (min-width: 700px) {
+	.pokemonTodos {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	#infoStats {
+		width: 100%;
+		background-color: var(--background);
+		margin-top: 3rem;
+		display: none;
+		flex-direction: row;
+		margin-left: auto;
+	}
+	#flecha {
+		top: 2rem;
+		right: 2rem;
+		position: absolute;
+		width: fit-content;
+	}
+
+	.izquierda {
+		width: 30%;
+		height: 100%;
+		justify-content: center;
+	}
+	.sprite {
+		display: block;
+	}
+
+	.nombrePokemon {
+		margin-block: 2rem 0rem;
+	}
+	#tipos {
+		margin-block: 5rem;
+	}
+	.derecha {
+		width: 100%;
+	}
+	#derechaStats {
+		margin-bottom: auto;
+		position: relative;
+	}
+	#movimientos {
+		display: flex;
+	}
+	#ocultarMovimientos {
+		display: block;
+	}
+}

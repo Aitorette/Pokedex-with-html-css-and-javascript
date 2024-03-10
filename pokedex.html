@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ES-es" id="html">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Pokedex</title>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<link rel="stylesheet" href="CSS/pokedex.css" />
+		<link rel="shortcut icon" href="IMAGES/icono.png" type="image/x-icon" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+		/>
+	</head>
+	<body>
+		<header id="header">
+			<nav class="nav" id="nav">
+				<div class="cabecera">
+					<img src="IMAGES/logo.png" alt="Logo" />
+					<div class="o-switch">
+						<input type="checkbox" oninput="cambiarTema()" />
+					</div>
+				</div>
+				<ul class="lista">
+					<li class="item">
+						<button class="btn btn-header" id="vertodos">
+							Ver todos
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header normal" id="normal">
+							Normal
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header fire" id="fire">
+							Fuego
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header water" id="water">
+							Agua
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header grass" id="grass">
+							Planta
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header electric" id="electric">
+							Eléctrico
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header ice" id="ice">
+							Hielo
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header fighting" id="fighting">
+							Lucha
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header poison" id="poison">
+							Veneno
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header ground" id="ground">
+							Tierra
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header flying" id="flying">
+							Volador
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header psychic" id="psychic">
+							Psíquico
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header bug" id="bug">
+							Bicho
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header rock" id="rock">
+							Roca
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header ghost" id="ghost">
+							Fantasma
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header dark" id="dark">
+							Siniestro
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header dragon" id="dragon">
+							Dragón
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header steel" id="steel">
+							Acero
+						</button>
+					</li>
+					<li class="item">
+						<button class="btn btn-header fairy" id="fairy">
+							Hada
+						</button>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main id="main">
+			<div id="todos">
+				<div class="pokemonTodos" id="listaPokemon"></div>
+			</div>
+		</main>
+		<div id="infoStats">
+			<div id="flecha" onclick="cerrarInfo()">
+				<span class="material-symbols-outlined"> close </span>
+			</div>
+			<div class="izquierda">
+				<span class="material-symbols-outlined" id="flechaIzquierda">
+					navigate_before
+				</span>
+				<span class="material-symbols-outlined" id="flechaDerecha">
+					chevron_right
+				</span>
+				<p class="numero" id="infoNum"></p>
+				<div class="image">
+					<img id="imagenStat" />
+				</div>
+				<div class="nombrePokemon" id="infoNombre"></div>
+				<div class="tipos" id="tipos">
+					<p class="tipo electric"></p>
+					<p class="tipo fighting"></p>
+				</div>
+				<div class="sprite"><img id="sprite" /></div>
+			</div>
+			<div class="derecha">
+				<div id="derechaStats">
+					<p class="estadisticas">Estadísticas</p>
+					<div class="tabla">
+						<table>
+							<tbody>
+								<tr>
+									<th class="estadisticaCelda" id="Vida">
+										Vida
+									</th>
+									<td class="barraCelda">
+										<div
+											class="barraStat"
+											id="barraVida"
+										></div>
+									</td>
+									<td class="numeroCelda" id="numVida">30</td>
+								</tr>
+								<tr>
+									<th class="estadisticaCelda" id="Ataque">
+										Ataque
+									</th>
+									<td class="barraCelda">
+										<div
+											class="barraStat"
+											id="barraAtaque"
+										></div>
+									</td>
+									<td class="numeroCelda" id="numAtaque">
+										25
+									</td>
+								</tr>
+								<tr>
+									<th class="estadisticaCelda" id="Defensa">
+										Defensa
+									</th>
+									<td class="barraCelda">
+										<div
+											class="barraStat"
+											id="barraDefensa"
+										></div>
+									</td>
+									<td class="numeroCelda" id="numDefensa">
+										15
+									</td>
+								</tr>
+								<tr>
+									<th class="estadisticaCelda" id="Ataque-SP">
+										Ataque.SP
+									</th>
+									<td class="barraCelda">
+										<div
+											class="barraStat"
+											id="barraASP"
+										></div>
+									</td>
+									<td class="numeroCelda" id="numASP">60</td>
+								</tr>
+								<tr>
+									<th
+										class="estadisticaCelda"
+										id="Defensa-SP"
+									>
+										Defensa.SP
+									</th>
+									<td class="barraCelda">
+										<div
+											class="barraStat"
+											id="barraDSP"
+										></div>
+									</td>
+									<td class="numeroCelda" id="numDSP">30</td>
+								</tr>
+								<tr>
+									<th class="estadisticaCelda" id="Velocidad">
+										Velocidad
+									</th>
+									<td class="barraCelda">
+										<div
+											class="barraStat"
+											id="barraVelocidad"
+										></div>
+									</td>
+									<td class="numeroCelda" id="numVelocidad">
+										40
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="derechaDesc">
+						<p class="estadisticas">Habilidades</p>
+						<div id="habilidades"></div>
+						<p class="estadisticas" id="ocultarMovimientos">
+							Movimientos
+						</p>
+						<div id="movimientos"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="JS/pokedex.js"></script>
+</html>
